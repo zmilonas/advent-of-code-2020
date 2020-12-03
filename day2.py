@@ -1,4 +1,4 @@
-
+#!/usr/bin/env python3
 
 def is_password_valid(_min: int, _max: int, letter: str, password: str) -> bool: 
     occur = {}
@@ -13,21 +13,8 @@ def is_password_valid(_min: int, _max: int, letter: str, password: str) -> bool:
             occur[lt] += 1
         else: 
             occur[lt] = 1
+
     return _min <= occur[letter] <= _max
-
-
-with open('day2.txt', 'r') as d2:
-    count = 0
-    for l in d2:
-        rng, lett, pwd = l.split(' ')
-        _min, _max = rng.split('-')
-        letter = lett[:-1]
-        if is_password_valid(_min, _max, letter, pwd):
-            count += 1
-    print(count)
-
-
-# PART 2
 
 def is_password_valid2(_min: int, _max: int, letter: str, password: str) -> bool:
     a = password[_min-1]
@@ -35,14 +22,18 @@ def is_password_valid2(_min: int, _max: int, letter: str, password: str) -> bool
     
     return (a == letter and b != letter) or (b == letter and a != letter)
 
+with open('inputs/day2.txt', 'r') as d2:
+    count_1 = 0
+    count_2 = 0
 
-with open('day2.txt', 'r') as d2:
-    count = 0
     for l in d2:
         rng, lett, pwd = l.split(' ')
         _min, _max = rng.split('-')
         letter = lett[:-1]
+        if is_password_valid(int(_min), int(_max), letter, pwd):
+            count_1 += 1
         if is_password_valid2(int(_min), int(_max), letter, pwd):
-            count += 1
+            count_2 += 1
 
-    print('part 2', count)
+    print('part 1', count_1)
+    print('part 2', count_2)

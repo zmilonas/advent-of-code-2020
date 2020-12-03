@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+f = open('inputs/day1.txt', 'r')
 ex = [int(exp.rstrip('\n')) for exp in f.readlines()]
 
 for i in range(0, len(ex)):
