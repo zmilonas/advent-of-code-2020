@@ -12,33 +12,54 @@ func check(e error) {
 	}
 }
 
+
 func main() {
 	file, err := os.Open("./inputs/day6.txt")
 	check(err)
 	defer file.Close()
 
-	answerSet := make(map[string]struct{})
-	count := 0
+	answerSet := make(map[string]int)
+	totalCount := 0
+	groupCount := 0
+	p2count := 0
 
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
 		line := scanner.Text()
 		if line == "" {
-			count += len(answerSet)
-			answerSet = make(map[string]struct{})
+			totalCount += len(answerSet)
+			for _, val := range answerSet {
+				if val == groupCount {
+					p2count++
+				}
+			}
+
+			answerSet = make(map[string]int)
+			groupCount = 0
+			continue
 		}
+		groupCount++
 		for _, r := range line {
 			char := string(r)
 			_, has := answerSet[char]
 			if has {
-				continue
+				answerSet[char]++
+			} else {
+				answerSet[char] = 1
 			}
-			answerSet[char] = struct{}{}
 		}
 
 	}
-	count += len(answerSet)
 	check(scanner.Err())
-	fmt.Println("part 1", count)
+
+	totalCount += len(answerSet)
+	for _, val := range answerSet {
+		if val == groupCount-1 {
+			p2count++
+		}
+	}
+
+	fmt.Println("part 1", totalCount)
+	fmt.Println("part 2", p2count)
 }
 
