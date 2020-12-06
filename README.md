@@ -11,7 +11,11 @@ e.g.
 ./day3.py
 ```
 
-Solutions in Go require the toolchain
+Python solution require Python 3 - `python3` executable in User's `$PATH`.
+
+TypeScript solution require `Deno` runtime - https://deno.land
+
+Solutions in Go require the Go toolchain (https://golang.org/doc/install) and can be executed with the `run` subcommand e.g.
 
 ```shell script
 go run ./day6.go
